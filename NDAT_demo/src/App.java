@@ -112,7 +112,24 @@ public class App {
         System.out.print("Park yeri seçin (1-5): ");
         int yerId = scanner.nextInt();
         scanner.nextLine(); // Yeni satırı temizle
-    
+        //if (aracSahibi.otoparkDoluMu(yerId)) {
+        //    if (aracSahibi.parkYerindekiAracinSahibiMi(yerId)) {
+        //        System.out.println("Otopaktan Çıkış yapmak istiyor musunuz? (E/H): ");
+         //       String cikisIstegi = scanner.nextLine();
+
+        //        if (cikisIstegi.equalsIgnoreCase("E")) {
+        //            aracSahibi.parkCikisiYap(yerId);
+        //        } else {
+        //            System.out.println("Giriş ekranına yönlendiriliyorsunuz...");
+        //    }
+        //}
+       // else {
+        //        System.out.println("Hata: Bu park yeri size ait değil. Lütfen başka bir park yeri seçin.");
+        //        System.out.println("Giriş ekranına yönlendiriliyorsunuz...");
+        //        usertransactions();
+        //}
+        //}
+        //else{
         aracSahibi.parkGirisiYap(yerId);
     
         System.out.print("Çıkış saati (yyyy-mm-dd hh:mm:ss): ");
@@ -149,7 +166,7 @@ public class App {
             varıs_noktası = "Bilinmeyen Güzergah";
         }
         
-        yolculuk  yolculuk = new yolculuk(aracSahibi.getComuId(), new Timestamp(System.currentTimeMillis()), cikisSaati, varıs_noktası);
+        yolculuk_planlaması  yolculuk = new yolculuk_planlaması(aracSahibi.getComuId(), new Timestamp(System.currentTimeMillis()), cikisSaati, varıs_noktası);
         boolean yolculukKaydedildi = yolculuk.kaydet();
 
         if (yolculukKaydedildi) {
@@ -167,7 +184,11 @@ public class App {
         } else {
             System.out.println("Yolculuk kaydedilemedi.");
         }
+    //}
     }
+
+
+
     private static boolean aracSahibiKontrol(String comuId) {
         String sql = String.format("SELECT * FROM arac_sahibi WHERE comuId = '%s'", comuId);
         try (Connection conn = DatabaseConnection.getConnection();
@@ -204,6 +225,8 @@ public class App {
     
         return null;
     }
+
+    
 
 
 }
