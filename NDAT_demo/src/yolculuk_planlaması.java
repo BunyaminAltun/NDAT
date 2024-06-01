@@ -32,4 +32,44 @@ public class yolculuk_planlaması {
             return false;
         }
     }
+
+
+    public int getComuId() {
+        return comuId;
+    }
+
+
+    public void setComuId(int comuId) {
+        this.comuId = comuId;
+    }
+
+
+    public Timestamp getGirisSaati() {
+        return girisSaati;
+    }
+
+
+    public void setGirisSaati(Timestamp girisSaati) {
+        this.girisSaati = girisSaati;
+    }
+
+
+    public Timestamp getCikisSaati() {
+        return cikisSaati;
+    }
+
+
+    public void setCikisSaati(Timestamp cikisSaati) {
+        this.cikisSaati = cikisSaati;
+    }
+
+
+    public String getVarıs_noktası() {
+        return varıs_noktası;
+    }
+
+
+    public void setVarıs_noktası(String varıs_noktası) {
+        this.varıs_noktası = varıs_noktası;
+    }
 }

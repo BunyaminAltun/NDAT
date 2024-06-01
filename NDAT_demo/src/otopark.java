@@ -64,7 +64,7 @@ public class otopark {
 
             // Yolculuk kaydını ekleyin
             String insertYolculukSql = String.format(
-                "INSERT INTO yolculuk (comuid, giris_saati, cikis_saati, varıs_noktası) VALUES (%d, '%s', '%s', '%s')",
+                "INSERT INTO yolculuk_planlaması (comuid, giris_saati, cikis_saati, varıs_noktası) VALUES (%d, '%s', '%s', '%s')",
                 comuId, girisSaati, cikisSaati, varıs_noktası
             );
 
@@ -79,7 +79,7 @@ public class otopark {
             stmt.executeUpdate(updateOtoparkYerSql);
 
             conn.commit();
-            System.out.println("Park çıkış işlemi ve yolculuk kaydı başarılı.");
+            System.out.println("Park çıkış işlemi ve yolculuk planlaması kaydı başarılı.");
             return true;
 
         } catch (SQLException e) {

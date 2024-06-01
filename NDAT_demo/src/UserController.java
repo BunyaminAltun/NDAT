@@ -84,6 +84,45 @@ public class UserController {
             return false;
         }
     }//Girisyap class
+    public void setComuId(int comuId) {
+        this.comuId = comuId;
+    }
+    public String getAd() {
+        return ad;
+    }
+    public void setAd(String ad) {
+        this.ad = ad;
+    }
+    public String getSoyad() {
+        return soyad;
+    }
+    public void setSoyad(String soyad) {
+        this.soyad = soyad;
+    }
+    public String getSifre() {
+        return sifre;
+    }
+    public void setSifre(String sifre) {
+        this.sifre = sifre;
+    }
+    public String getKullaniciTipi() {
+        return kullaniciTipi;
+    }
+    public void setKullaniciTipi(String kullaniciTipi) {
+        this.kullaniciTipi = kullaniciTipi;
+    }
+    public String getPlaka() {
+        return plaka;
+    }
+    public void setPlaka(String plaka) {
+        this.plaka = plaka;
+    }
+    public int getAtp_id() {
+        return atp_id;
+    }
+    public void setAtp_id(int atp_id) {
+        this.atp_id = atp_id;
+    }
     
     
 }//Class Usercontroler

@@ -1,4 +1,5 @@
 import  java.sql.*;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -8,7 +9,7 @@ public class App {
         if (conn != null) {
             System.out.println("Veritabanı bağlantısı başarıyla test edildi.");
         } else {
-            System.out.println("Veritabanı bağlantısı testi başarısız oldu.");
+            System.out.println("V eritabanı bağlantısı testi başarısız oldu.");
         }
 
         //UserController kullanici2 = new UserController(2, "Ahmet", "Mehmet", "sifre456", "arac_sahibi", "34ABC123", 1234);
@@ -71,7 +72,8 @@ public class App {
             boolean kayitBasarili = yeniKullanici.kayitOl();
             System.out.println("Kayıt başarılı mı? " + kayitBasarili);
     
-        } else if (secim == 2) {
+        } 
+        else if (secim == 2) {
         // Giriş yapma işlemi
         System.out.print("Comu ID: ");
         String comu_id = scanner.nextLine();
@@ -89,7 +91,10 @@ public class App {
                 AracSahibi aracSahibi = getAracSahibi(comu_id);
                 aracSahibiIslemleri(aracSahibi, scanner);
             } else {
-                System.out.println("Öğrenci olarak giriş yaptınız. Şu anda sadece araç sahipleri için işlemler mevcut.");
+                System.out.println("Kullanıcı(Yolcu) olarak giriş yaptınız.");
+                Yolcu yolcu = getYolcu(comu_id);
+                yolcuIslemleri(yolcu);
+
             }
         } else {
             System.out.println("Giriş başarısız.");
@@ -227,7 +232,68 @@ public class App {
     }
 
     
+    public static void yolcuIslemleri(Yolcu yolcu) {
+        Scanner scanner = new Scanner(System.in);
 
+        Yolcu yolcu1 = yolcu;
+        // Varış noktası seçimi
+        System.out.println("Varış Noktası seçin:");
+        System.out.println("1. Kampüs A Girişi");
+        System.out.println("2. Kampüs B Girişi");
+        System.out.println("3. Kampüs C Girişi");
+        int varisNoktasiSecim = scanner.nextInt();
+        scanner.nextLine(); // Yeni satırı temizle
+
+        String varisNoktasi;
+        switch (varisNoktasiSecim) {
+            case 1:
+                varisNoktasi = "Kampüs A Girişi";
+                break;
+            case 2:
+                varisNoktasi = "Kampüs B Girişi";
+                break;
+            case 3:
+                varisNoktasi = "Kampüs C Girişi";
+                break;
+            default:
+                System.out.println("Geçersiz seçim, varsayılan olarak 'Kampüs A Girişi' seçildi.");
+                varisNoktasi = "Kampüs A Girişi";
+        }
+
+        // Yolculuk planlamalarını listeleme
+        List<yolculuk_planlaması> yolculuklar = yolcu.yolculukPlanlamalariniListele(varisNoktasi);
+        System.out.println("Yolculuk Planlamaları:");
+        for (yolculuk_planlaması yolculuk : yolculuklar) {
+            System.out.println("Yolculuk ID: " + yolculuk.getComuId() + ", Varış Noktası: " + yolculuk.getVarıs_noktası() + " ,"+"Çıkış Saati:" + yolculuk.getCikisSaati());
+        }
+
+        // Yolculuk planlamasına katılma
+        System.out.println("Katılmak istediğiniz yolculuk planlamasının ID'sini girin:");
+        int yolculukId = scanner.nextInt();
+        yolcu.yolculukPlanlamasinaKatil(yolculukId, yolcu1.getAd());
+    }
+
+
+    public static Yolcu getYolcu(String comuId) {
+        String sql = String.format("SELECT * FROM kullanici WHERE comuid = '%s'", comuId);
+        try (Connection conn = DatabaseConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            if (rs.next()) {
+                int comuIdInt = rs.getInt("comuid");
+                String ad = rs.getString("ad");
+                String soyad = rs.getString("soyad");
+                String sifre = rs.getString("sifre");
+                UserController userController = new UserController(comuIdInt, ad, soyad, sifre, null);
+                return new Yolcu(comuIdInt, ad, soyad, sifre, null);
+            }
+        } catch (SQLException e) {
+            System.err.println("Yolcu bilgileri alınırken hata oluştu: " + e.getMessage());
+        }
+
+        return null;
+    }
 
 }
 
